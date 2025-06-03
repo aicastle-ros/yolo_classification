@@ -68,3 +68,4 @@
 1. Pose (포즈)
     ![alt text](images/image-3.png)
 
+## [4] 데이터 수집 
