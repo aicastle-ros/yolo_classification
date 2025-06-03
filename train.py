@@ -10,11 +10,11 @@ train_val_split_ratio = 0.8
 
 # 훈련 하이퍼파라미터 설정
 train_args = {
-    'data': 'dataset/yolo',  # 데이터셋 설정 파일
-    'epochs': 50,  # 최대 에포크
+    'data': yolo_format_dir
+    'epochs': 50,   # 최대 에포크
     'patience': 10, # 조기 종료를 위한 patience
     'batch': 16,    # 자동 :-1
-    'imgsz': 128,  # 이미지 크기
+    'imgsz': 128,   # 이미지 크기
     'plots': True,  # 훈련 결과 시각화 저장
     ### augmetation
     'augment': True,      # 데이터 증강 사용
@@ -22,16 +22,16 @@ train_args = {
     'hsv_h': 0.015, # 색조 조정
     'hsv_s': 0.7,   # 채도 조정
     'hsv_v': 0.4,   # 밝기 조정
-    'degrees': 0.0, # 회전 각도 조정
+    'degrees': 0.0, # 회전 각도 조정  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'translate': 0.1, # 수평/수직 이동
-    'scale': 0.5,   # 크기 조정
+    'scale': 0.5,   # 크기 조정  
     'shear': 0.0,   # 전단 변형
     'perspective': 0.0,  # 관점 변형
-    'flipud': 0.0,  # 상하 반전  ! 중요 - 이미지의 상하가가 바뀌므로, 자율주행에서는 사용하지 않는 것이 좋음
-    'fliplr': 0.0,  # 좌우 반전  ! 중요 - 이미지의 좌우가 바뀌므로, 자율주행에서는 사용하지 않는 것이 좋음
+    'flipud': 0.0,  # 상하 반전  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
+    'fliplr': 0.0,  # 좌우 반전  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'bgr': 0.0,     # BGR 색상 공간 변환
     'mosaic': 0.0,  # 모자이크 증강 ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
-    'mixup': 0.0,   # MixUp 증강 ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
+    'mixup': 0.0,   # MixUp 증강  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'cutmix': 0.0,  # CutMix 증강 ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     # 'copy_paste': 0.0, # 복사-붙여넣기 : segmetation에서만 적용 됨.
     # 'copy_paste_mode': 'flip', # 복사-붙여넣기 모드 : segmetation에서만 적용 됨.
