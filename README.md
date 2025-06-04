@@ -161,7 +161,7 @@ docker run -it --rm \
 
 ### 3.1. 서빙 시작하기
 ```bash
-sudo docker run -it --rm \
+docker run -it --rm \
     --name yolo_server \
     --ipc=host \
     -p 5000:5000 \
