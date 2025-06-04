@@ -45,7 +45,7 @@ sudo docker build -t yolo:latest .
 sudo docker run -it --rm \
     --name yolo_train \
     --ipc=host \
-    -u $(id -u):$(id -g) \ 
+    -u $(id -u):$(id -g) \
     --runtime=nvidia \
     -v /home/jetson/yolo_classification:/workspace \
     yolo:latest \
