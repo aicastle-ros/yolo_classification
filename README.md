@@ -1,42 +1,57 @@
 # Yolo Classification
 
-[**YOLO**](https://docs.ultralytics.com/)를 활용하여 차량의 카메라 센서로 딥러닝 자율주행 모델을 구현합니다.
+[**YOLO**](https://docs.ultralytics.com/)를 활용하여 jetson nano에서 차량의 카메라 센서로 딥러닝 자율주행 모델을 구현합니다.
 
-## [1] Installation
+## [1] Installation - jetson nano (ubuntu 20.04)
 
-### jetson nano (ubuntu 20.04)에 설치
 
+### 1.1. 스왑 메모리 확장 (옵션)
 ```bash
-# 레포지토리 클론
+# 원하는 크기 만큼 빈 파일 생성 (8G)
+sudo fallocate -l 8G /swapfile
+# 파일 권한 설정
+sudo chmod 600 /swapfile
+# 스왑 영역으로 포맷하기
+sudo mkswap /swapfile
+# 스왑 활성화하기
+sudo swapon /swapfile
+# 부팅 시 자동으로 스왑 켜기
+grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+### 1.2. 도커 권한 부여 (옵션) - 실행 후 재부팅 필요
+    
+```bash
+sudo usermod -aG docker "$USER"
+```
+    
+
+### 1.3. 레포지토리 클론
+```bash
 cd ~
 git clone https://github.com/aicastle-ros/yolo_classification.git
 cd yolo_classification
-
-# ultralytics yolo 설치
-pip install ultralytics
 ```
 
-- 스왑 메모리 확장 (옵션)
-    ```bash
-    # 원하는 크기 만큼 빈 파일 생성 (8G)
-    sudo fallocate -l 8G /swapfile
-    # 파일 권한 설정
-    sudo chmod 600 /swapfile
-    # 스왑 영역으로 포맷하기
-    sudo mkswap /swapfile
-    # 스왑 활성화하기
-    sudo swapon /swapfile
-    # 부팅 시 자동으로 스왑 켜기
-    grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-    ```
+### 1.4. 설치 (도커 빌드)
+```bash
+sudo docker build -t yolo:latest .
+```
 
-
-## [2] Train
+## [2] Train (`train.py`)
 
 ### 2.1. 훈련 시작하기
-    ```bash
+```bash
+sudo docker run -it --rm \
+    --name yolo_train \
+    --ipc=host \
+    -u $(id -u):$(id -g) \ 
+    --runtime=nvidia \
+    -v /home/jetson/yolo_classification:/workspace \
+    yolo:latest \
     python3 train.py
-    ```
+```
+
 
 ### 2.2. 분류 모델 종류
 
@@ -105,7 +120,6 @@ pip install ultralytics
 
 ### 2.4. 훈련 하이퍼파라미터 설정
 
-
 #### [**일반 하이퍼파라미터**](https://docs.ultralytics.com/modes/train/#train-settings)
 
 - `epochs`: 최대 에포크 (훈련 시 전체 데이터셋을 몇 번 반복할지 설정)
@@ -133,9 +147,29 @@ pip install ultralytics
 - `cutmix`: CutMix 증강 확률 (0.0이면 CutMix 미사용; 자율주행에서는 사용하지 않는 것이 좋음)
 - `erasing`: 랜덤 지우기(Erasing) 증강 확률 (0.4면 이미지의 일부를 최대 40% 영역까지 무작위로 지워서 학습 데이터 다양성 증가)
 
-## [3] 훈련 모델 결과
+### 2.5. 훈련 모델 결과
 
 - 분류 모델의 경우 `runs/classify/train<idx>` 형태의 폴더에 저장 됨
 - 모델 가중치 파일은 `runs/classify/train<idx>/weights` 폴더에 저장 됨.
     - `best.pt`: val 에서 가장 높은 훈련 결과를 기록한 모델 가중치치
     - `last.pt` : 모델 훈련이 (조기) 종료 된 시점의 마지막 모델 가중치
+
+
+
+## [3] Serve (`server.py`)
+
+### 3.1. 서빙 시작하기
+```bash
+sudo docker run -it --rm \
+    --name yolo_server \
+    --ipc=host \
+    -p 5000:5000 \
+    --runtime=nvidia \
+    -v /home/jetson/yolo_classification:/workspace \
+    yolo:latest \
+    python3 server.py
+```
+
+### 3.2. 서빙할 모델 경로
+
+`MODEL_PATH` 환경 변수로 지정합니다. 

@@ -60,12 +60,15 @@
 1. 현재, [Ultralytics](https://docs.ultralytics.com/) 팀에서 주도하고 있음
 ### 3.2. 지원하는 Task(작업)
 1. Classify (분류)
-    ![alt text](images/image-2.png)
+    ![alt text](https://github.com/ultralytics/docs/releases/download/0/image-classification-examples.avif)
 1. Detect (객체 탐지)
-    ![alt text](images/image.png)
+    ![alt text](https://github.com/ultralytics/docs/releases/download/0/object-detection-examples.avif)
 1. Segment (분할)
-    ![alt text](images/image-1.png)
+    ![alt text](https://github.com/ultralytics/docs/releases/download/0/instance-segmentation-examples.avif)
 1. Pose (포즈)
-    ![alt text](images/image-3.png)
+    ![alt text](https://github.com/ultralytics/docs/releases/download/0/pose-estimation-examples.avif)
+
 
 ## [4] 데이터 수집 
+
+업데이트 예정
