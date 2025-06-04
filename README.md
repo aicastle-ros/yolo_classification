@@ -19,11 +19,12 @@ sudo swapon /swapfile
 grep -qxF '/swapfile none swap sw 0 0' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
 
-### 1.2. 도커 권한 부여 (옵션) - 실행 후 재부팅 필요
+### 1.2. 도커 권한 부여
     
 ```bash
 sudo usermod -aG docker "$USER"
 ```
+- 실행 후 재부팅 필요
     
 
 ### 1.3. 레포지토리 클론
@@ -35,14 +36,14 @@ cd yolo_classification
 
 ### 1.4. 설치 (도커 빌드)
 ```bash
-sudo docker build -t yolo:latest .
+docker build -t yolo:latest .
 ```
 
 ## [2] Train (`train.py`)
 
 ### 2.1. 훈련 시작하기
 ```bash
-sudo docker run -it --rm \
+docker run -it --rm \
     --name yolo_train \
     --ipc=host \
     -u $(id -u):$(id -g) \
