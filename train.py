@@ -15,11 +15,12 @@ train_val_split_ratio = 0.8
 train_args = {
     'data': yolo_format_dir,
     'project': results_dir,
-    'epochs': 50,   # 최대 에포크
-    'patience': 10, # 조기 종료를 위한 patience
-    'batch': 16,    # 자동 :-1
-    'imgsz': 128,   # 이미지 크기
-    'plots': True,  # 훈련 결과 시각화 저장
+    'epochs': 50,    # 최대 에포크
+    'patience': 10,  # 조기 종료를 위한 patience
+    'save_period': 5 # 모델 가중치 저장 빈도 (-1:비활성)
+    'batch': 16,     # 모델 가중치를 업데이트할 때 참고할 데이터의 묶음 수 (-1:자동)
+    'imgsz': 128,    # 입력할 때 조정할 이미지 크기
+    'plots': True,   # 훈련 결과 시각화 저장
     ### augmetation
     'augment': True,      # 데이터 증강 사용
     'auto_augment': None, # 자동 증강 끄기 (수동 설정)
