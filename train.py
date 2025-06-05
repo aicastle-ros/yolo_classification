@@ -1,5 +1,5 @@
 # 사전 훈련된 모델 - n: nano, s: small, m: medium, l: large, x: extra large
-pretrained_model_name = "yolo11n-cls.pt"  
+pretrained_model_name = "yolo11s-cls.pt"  
 
 # 데이터셋 경로 설정
 collect_dir = 'dataset/collect'
@@ -17,12 +17,11 @@ train_args = {
     'project': results_dir,
     'epochs': 50,    # 최대 에포크
     'patience': 10,  # 조기 종료를 위한 patience
-    'save_period': 5 # 모델 가중치 저장 빈도 (-1:비활성)
+    'save_period': 5, # 모델 가중치 저장 빈도 (-1:비활성)
     'batch': 16,     # 모델 가중치를 업데이트할 때 참고할 데이터의 묶음 수 (-1:자동)
     'imgsz': 128,    # 입력할 때 조정할 이미지 크기
     'plots': True,   # 훈련 결과 시각화 저장
     ### augmetation
-    'augment': True,      # 데이터 증강 사용
     'auto_augment': None, # 자동 증강 끄기 (수동 설정)
     'hsv_h': 0.015, # 색조 조정
     'hsv_s': 0.7,   # 채도 조정

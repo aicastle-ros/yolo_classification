@@ -1,5 +1,5 @@
 # 서빙 할 모델 경로
-MODEL_PATH = "runs/classify/train1/weights/best.pt"
+MODEL_PATH = "runs/classify/train/weights/best.pt"
 
 
 ###############################################################

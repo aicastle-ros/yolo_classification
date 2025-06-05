@@ -46,7 +46,6 @@ docker build -t yolo:latest .
 docker run -it --rm \
     --name yolo_train \
     --ipc=host \
-    -u $(id -u):$(id -g) \
     --runtime=nvidia \
     -v /home/jetson/yolo_classification:/workspace \
     yolo:latest \
@@ -150,11 +149,18 @@ docker run -it --rm \
 
 ### 2.5. 훈련 모델 결과
 
+#### 훈련된 모델 폴더 구조
 - 분류 모델의 경우 `runs/classify/train<idx>` 형태의 폴더에 저장 됨
 - 모델 가중치 파일은 `runs/classify/train<idx>/weights` 폴더에 저장 됨.
     - `best.pt`: val 에서 가장 높은 훈련 결과를 기록한 모델 가중치치
     - `last.pt` : 모델 훈련이 (조기) 종료 된 시점의 마지막 모델 가중치
 
+#### 훈련된 모델 폴더 삭제 방법
+- docker 컨테이너에서 root 권한으로 실행되므로, `sudo` 명령어를 사용하여 폴더를 삭제해야 합니다.
+- 예시
+    ```bash
+    sudo rm -rf /home/jetson/yolo_classification/runs/classify/train<idx>
+    ```
 
 
 ## [3] Serve (`server.py`)
@@ -173,4 +179,6 @@ docker run -it --rm \
 
 ### 3.2. 서빙할 모델 경로
 
-`MODEL_PATH` 환경 변수로 지정합니다. 
+- `MODEL_PATH` 환경 변수로 지정합니다. 
+- (ex1) `MODEL_PATH = "runs/classify/train/weights/best.pt"`
+- (ex2) `MODEL_PATH = "runs/classify/train3/weights/epoch20.pt"`
