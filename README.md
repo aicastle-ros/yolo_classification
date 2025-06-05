@@ -127,7 +127,6 @@ docker run -it --rm \
 - `batch`: 배치 크기 (한 번에 네트워크에 입력으로 넣는 이미지 개수; 메모리 및 학습 속도에 영향)
 - `imgsz`: 입력 이미지 크기 (훈련 시 네트워크에 공급할 이미지의 한 변 길이; 예: 128 → 128×128 픽셀)
 - `plots`: 훈련 결과 시각화를 저장할지 여부 (True면 loss/precision/recall 등 곡선을 그래프로 그려 파일로 저장)
-- `augment`: 데이터 증강 사용 여부 (True면 아래에 설정한 여러 증강 기법을 적용)
 
 #### [**증강 하이퍼파라미터**](https://docs.ultralytics.com/guides/yolo-data-augmentation/)
 - `auto_augment`: 자동 증강 사용 설정 (None이면 자동 증강 모듈을 끄고, 직접 설정값을 사용)
