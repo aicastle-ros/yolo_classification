@@ -5,8 +5,6 @@ pretrained_model_name = "yolo11s-cls.pt"
 collect_dir = 'dataset/collect'
 yolo_format_dir = 'dataset/yolo'
 
-# 모델 훈련 결과가 저장될 위치 (default: 'runs/classify' )
-results_dir = 'runs/classify'
 
 # 기본 train/val 분할 비율
 train_val_split_ratio = 0.8  
@@ -14,7 +12,7 @@ train_val_split_ratio = 0.8
 # 훈련 하이퍼파라미터 설정
 train_args = {
     'data': yolo_format_dir,
-    'project': results_dir,
+    'project': 'runs/classify',
     'epochs': 50,    # 최대 에포크
     'patience': 10,  # 조기 종료를 위한 patience
     'save_period': 5, # 모델 가중치 저장 빈도 (-1:비활성)
@@ -136,5 +134,5 @@ if __name__ == "__main__":
     check_cuda()
     train_val_split(train_val_split_ratio=train_val_split_ratio)
 
-    model = YOLO(f"models/pretrained/{pretrained_model_name}")
+    model = YOLO(pretrained_model_name)
     model.train(**train_args)
