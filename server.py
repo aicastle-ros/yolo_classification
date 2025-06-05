@@ -1,5 +1,5 @@
 # 서빙 할 모델 경로
-MODEL_PATH = "runs/classify/train/weights/best.pt"
+MODEL_PATH = "runs/classify/train5/weights/best.pt"
 
 
 ###############################################################
@@ -46,18 +46,23 @@ def predict():
         result_orig_img = result.orig_img     # 원본 이미지 행렬 배열
         result_orig_shape = result.orig_shape # 원본 이미지
         result_names = result.names           # 클래스 인덱스(클래스 이름 딕셔너리)
+        result_names = [str(result_names[i]) for i in range(len(result_names))]
+        
         ### 확률 데이터 정보 (result.probs)
         result_probs = result.probs.data.cpu().numpy()
-
+        result_probs = [float(result_probs[i]) for i in range(len(result_probs))]
+        
         ### 가장 높은 확률의 클래스 정보
-        best_index = result_probs.argmax()
+        best_index = result_probs.index(max(result_probs))
         best_name = result_names[best_index]
         best_prob = result_probs[best_index]
         
         return {
-            'idx': int(best_index),
-            'label': str(best_name),
-            'prob': float(best_prob),
+            'result_names': result_names,
+            'result_probs': result_probs,
+            'best_index': best_index,
+            'best_name': best_name,
+            'best_prob': best_prob,
         }
         return jsonify({"predictions": predictions})
 

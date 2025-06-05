@@ -1,5 +1,5 @@
 # 사전 훈련된 모델 - n: nano, s: small, m: medium, l: large, x: extra large
-pretrained_model_name = "yolo11s-cls.pt"  
+pretrained_model_name = "yolo11n-cls.pt"  
 
 # 데이터셋 경로 설정
 collect_dir = 'dataset/collect'
@@ -33,7 +33,7 @@ train_args = {
     'perspective': 0.0,  # 관점 변형
     'flipud': 0.0,  # 상하 반전  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'fliplr': 0.0,  # 좌우 반전  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
-    'bgr': 0.0,     # BGR 색상 공간 변환
+    'bgr': 0.5,     # BGR 색상 공간 변환
     'mosaic': 0.0,  # 모자이크 증강 ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'mixup': 0.0,   # MixUp 증강  ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
     'cutmix': 0.0,  # CutMix 증강 ! 중요 - 자율주행에서는 사용하지 않는 것이 좋음
