@@ -19,7 +19,7 @@ train_args = {
     'patience': 10,  # 조기 종료를 위한 patience
     'save_period': 5, # 모델 가중치 저장 빈도 (-1:비활성)
     'batch': 16,     # 모델 가중치를 업데이트할 때 참고할 데이터의 묶음 수 (-1:자동)
-    'imgsz': 128,    # 입력할 때 조정할 이미지 크기
+    'imgsz': 160,    # 입력할 때 조정할 이미지 크기
     'plots': True,   # 훈련 결과 시각화 저장
     ### augmetation
     'auto_augment': None, # 자동 증강 끄기 (수동 설정)
