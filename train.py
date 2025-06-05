@@ -11,8 +11,10 @@ train_val_split_ratio = 0.8
 
 # 훈련 하이퍼파라미터 설정
 train_args = {
+    ### 경로 설정 (고정)
     'data': yolo_format_dir,
     'project': 'runs/classify',
+    ### hyperparameters
     'epochs': 50,    # 최대 에포크
     'patience': 10,  # 조기 종료를 위한 patience
     'save_period': 5, # 모델 가중치 저장 빈도 (-1:비활성)
